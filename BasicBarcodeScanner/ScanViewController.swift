@@ -12,7 +12,7 @@ import UIKit
 import VisionKit
 internal import Vision
 
-final class ViewController: UIViewController {
+final class ScanViewController: UIViewController {
     
     private let dataScannerViewController = DataScannerViewController(recognizedDataTypes: [.text(), .barcode(symbologies: [.ean13, .qr, .upce])],
                                                                       qualityLevel: .fast,
@@ -35,7 +35,7 @@ final class ViewController: UIViewController {
     }
 }
 
-extension ViewController: DataScannerViewControllerDelegate { // Mark 5
+extension ScanViewController: DataScannerViewControllerDelegate { // Mark 5
     func dataScanner(_ dataScanner: DataScannerViewController, didAdd addedItems: [RecognizedItem], allItems: [RecognizedItem]) { // Mark 5
         for item in addedItems {
             switch item {
