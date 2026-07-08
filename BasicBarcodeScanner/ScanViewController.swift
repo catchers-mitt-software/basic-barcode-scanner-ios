@@ -15,28 +15,26 @@ internal import Vision
 final class ScanViewController: UIViewController {
     
     private let dataScannerViewController = DataScannerViewController(recognizedDataTypes: [.text(), .barcode(symbologies: [.ean13, .qr, .upce])],
-                                                                      qualityLevel: .fast,
-                                                                      recognizesMultipleItems: false,
-                                                                      isHighFrameRateTrackingEnabled: true,
-                                                                      isPinchToZoomEnabled: true,
-                                                                      isGuidanceEnabled: true,
-                                                                      isHighlightingEnabled: true) // Mark 1
+        qualityLevel: .fast, recognizesMultipleItems: false,
+        isHighFrameRateTrackingEnabled: true, isPinchToZoomEnabled: true,
+        isGuidanceEnabled: true, isHighlightingEnabled: true)
     
-    private var isScannerAvailable: Bool { DataScannerViewController.isSupported && DataScannerViewController.isAvailable } // Mark 2
+    private var isScannerAvailable: Bool {
+        DataScannerViewController.isSupported &&
+        DataScannerViewController.isAvailable }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        dataScannerViewController.delegate = self // Mark 5
-        
-        if isScannerAvailable { // Mark 2
-            present(dataScannerViewController, animated: true) // Mark 4
-            try? dataScannerViewController.startScanning() // Mark 4
+        dataScannerViewController.delegate = self
+        if isScannerAvailable {
+            present(dataScannerViewController, animated: true)
+            try? dataScannerViewController.startScanning()
         }
     }
 }
 
-extension ScanViewController: DataScannerViewControllerDelegate { // Mark 5
-    func dataScanner(_ dataScanner: DataScannerViewController, didAdd addedItems: [RecognizedItem], allItems: [RecognizedItem]) { // Mark 5
+extension ScanViewController: DataScannerViewControllerDelegate {
+    func dataScanner(_ dataScanner: DataScannerViewController, didAdd addedItems: [RecognizedItem], allItems: [RecognizedItem]) {
         for item in addedItems {
             switch item {
             case .text(let text):
@@ -64,4 +62,5 @@ extension ScanViewController: DataScannerViewControllerDelegate { // Mark 5
 //        alertViewController.addAction(UIAlertAction(title: "Holy Swift!", style: .cancel))
 //        present(alertViewController, animated: true)
 //    }
+    
 }
